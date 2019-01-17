@@ -1,0 +1,88 @@
+<template>
+  <!-- 需求:通过点击<el-input> 将<el-tree>树型结构打开，选中<el-tree>某个值显示在<el-input>里面(中文)，点击搜索将<el-input>的值传给后台，后台需要中文对应的id;前端显示中文，后台传入Number -->
+  <div class="demo">
+    <el-input placeholder="前端显示中文" v-model="demoString" value-key=demoNumber @click.native="getTree"></el-input>
+    <el-tree :data="data" :props="defaultProps" node-key=id @node-click="handleNodeClick" v-show="closeTree" default-expand-all></el-tree>
+  </div>
+</template>
+<script>
+  export default {
+    name: 'demo',
+    data() {
+      return {
+        demoString: '',
+        closeTree: false,
+        data: [{
+          id: 1,
+          label: '一级 1',
+          children: [{
+            id: 2,
+            label: '二级 1-1',
+            children: [{
+              id: 3,
+              label: '三级 1-1-1'
+            }]
+          }]
+        }, {
+          id: 4,
+          label: '一级 2',
+          children: [{
+            id: 5,
+            label: '二级 2-1',
+            children: [{
+              id: 6,
+              label: '三级 2-1-1'
+            }]
+          }, {
+            id: 7,
+            label: '二级 2-2',
+            children: [{
+              id: 8,
+              label: '三级 2-2-1'
+            }]
+          }]
+        }, {
+          id: 9,
+          label: '一级 3',
+          children: [{
+            id: 10,
+            label: '二级 3-1',
+            children: [{
+              id: 11,
+              label: '三级 3-1-1'
+            }]
+          }, {
+            id: 12,
+            label: '二级 3-2',
+            children: [{
+              id: 13,
+              label: '三级 3-2-1'
+            }]
+          }]
+        }],
+        defaultProps: {
+          children: 'children',
+          label: 'label'
+        }
+      }
+    },
+    created() {
+
+    },
+    methods: {
+      // 点击 树状里面当前那个
+      handleNodeClick(data) {
+        this.demoString = data.label; // 前端显示中文
+        this.demoNumber = data.id; // 传后台值为对应 id 
+        this.closeTree = !this.closeTree;
+      },
+      // 点击 input 打开 树状，
+      getTree() {
+        this.closeTree = !this.closeTree;
+      },
+    },
+  };
+</script>
+<style scoped>
+
+</style>

@@ -46,7 +46,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style  scoped>
 .container{
   height: 100%;
   display: flex;
@@ -60,8 +60,13 @@ export default {
   border-radius: 5px;
   background: #fff;
   position: fixed;
-  padding-right: 30px;
   padding-top: 30px;
+}
+.formId p{
+    text-align:center;
+  }
+.formId .el-form-item{
+  padding-right: 30px;
 }
 </style>
 
