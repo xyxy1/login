@@ -3,7 +3,7 @@
     <div class="left">
       <label>关键字</label>
       <el-input icon="el-icon-search" v-model="keywords" placeholder="请输入关键字" size="small" clearable></el-input>
-      <!-- <el-button type="primary" @click="onSearch" size="small">查询</el-button> -->
+      <el-button type="primary" @click="isPictureDialog=true" size="small">选择对象</el-button>
     </div>
     <div class="right">
       <el-button @click="onAdd" icon="el-icon-plus" size="small">添加</el-button>
@@ -26,7 +26,7 @@
 
     <!-- <el-pagination @size-change="onSizeChange" @current-change="onCurrentChange" :current-page="query.currentPage" :page-sizes="[2,5,10]" :page-size="query.pageSize" layout="total, sizes, prev, pager, next, jumper" :total="list.length"/> -->
 
-    <el-dialog :title="form.name?'编辑学生信息':'添加学生信息'" :visible.sync="dialogFormVisible">
+    <el-dialog :title="form.name?'编辑学生信息':'添加学生信息'" :visible.sync="dialogFormVisible" width="500px">
       <el-form :model="form" ref="form" label-width="80px">
         <el-form-item label="姓名" prop="name">
           <el-input v-model="form.name" autocomplete="off"></el-input>
@@ -61,6 +61,9 @@
         <el-button @click="isDeptTreeDialog=false">取消</el-button>
       </div>
     </el-dialog>
+
+    <!-- 图片弹窗 -->
+    
   </div>
 </template>
 <script>
@@ -68,6 +71,7 @@ export default {
   name: "student",
   data() {
     return {
+      isPictureDialog:false,
       keywords: "",
       options: [
         {
@@ -153,11 +157,6 @@ export default {
         address: ""
       },
       multipleSelection: [],
-      // query: {
-      //   keywords: "",
-      //   pageSize: 2,
-      //   currentPage: 1
-      // }
       isDeptTreeDialog: false,
       filterText: "",
       defaultChecked: [],
@@ -207,8 +206,7 @@ export default {
     filterText(val) {
       this.$refs.deptTree.filter(val);
     },
-    isDeptTreeDialog(val) {
-    }
+    isDeptTreeDialog(val) {}
   },
   methods: {
     onAdd() {
@@ -246,8 +244,8 @@ export default {
     handleEdit(data) {
       this.form = data;
       this.dialogFormVisible = true;
-      console.log(data,"da");
-      
+      console.log(data, "da");
+
       this.defaultChecked = [data.lid];
     },
     handleDelete(index, row) {
@@ -285,10 +283,12 @@ export default {
         id: null,
         sex: null,
         name: null,
+        dept: null,
         label: null,
         unity: null,
         address: null
       };
+      this.defaultChecked = [];
     },
     //树的操作
     //节点过滤
@@ -370,6 +370,10 @@ export default {
   margin-left: 10px;
   /* display: inline-block; */
 }
+.left .el-button{
+  width: 90px;
+  margin-left:10px;
+}
 .right {
   width: auto;
   float: right;
@@ -377,8 +381,8 @@ export default {
 .confirm {
   background-color: crimson;
 }
-.el-button--small,
-.el-button--small.is-round {
+.right .el-button--small,
+.right .el-button--small.is-round {
   padding: 9px;
 }
 </style>
