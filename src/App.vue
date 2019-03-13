@@ -15,9 +15,7 @@ body,
 #app {
   height: 100%;
 }
-html {
-  background-color: whitesmoke;
-}
+
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
